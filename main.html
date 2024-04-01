@@ -57,7 +57,7 @@
   // Function to update button states
   function updateButtons() {
     prevButton.disabled = currentIndex === 0;
-    nextButton = currentIndex === circles.length - 1 || circles[currentIndex].classList.contains('active');
+    nextButton.disabled = currentIndex === circles.length - 1 || circles[currentIndex].classList.contains('active');
   }
 
   // Function to update progress
