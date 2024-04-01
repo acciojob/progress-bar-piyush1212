@@ -11,33 +11,26 @@
     justify-content: center;
     margin-top: 50px;
   }
-  
   .circle {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background-color: gray;
+    background-color: grey;
     margin: 0 10px;
   }
-  
-  .circle.active {
-    background-color: blue;
+  .active {
+    background-color: green;
   }
-
-  button {
-    margin-top: 20px;
+  #next,
+  #prev {
+    margin: 20px;
     padding: 10px 20px;
     font-size: 16px;
-    cursor: pointer;
-  }
-
-  button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
   }
 </style>
 </head>
 <body>
+
 <div class="progress-bar">
   <div class="circle active" id="circle-1"></div>
   <div class="circle" id="circle-2"></div>
@@ -45,6 +38,7 @@
   <div class="circle" id="circle-4"></div>
   <div class="circle" id="circle-5"></div>
 </div>
+
 <button id="prev" disabled>Previous</button>
 <button id="next">Next</button>
 
@@ -52,18 +46,16 @@
   const circles = document.querySelectorAll('.circle');
   const prevButton = document.getElementById('prev');
   const nextButton = document.getElementById('next');
-  let currentIndex = 0;
+  let currentCircle = 0;
 
-  // Function to update button states
   function updateButtons() {
-    prevButton.disabled = currentIndex === 0;
-    nextButton.disabled = currentIndex === circles.length - 1 || circles[currentIndex].classList.contains('active');
+    prevButton.disabled = currentCircle === 0;
+    nextButton.disabled = currentCircle === circles.length - 1;
   }
 
-  // Function to update progress
   function updateProgress() {
     circles.forEach((circle, index) => {
-      if (index <= currentIndex) {
+      if (index <= currentCircle) {
         circle.classList.add('active');
       } else {
         circle.classList.remove('active');
@@ -71,26 +63,24 @@
     });
   }
 
-  // Event listener for next button
-  nextButton.addEventListener('click', () => {
-    if (currentIndex < circles.length - 1) {
-      currentIndex++;
-      updateProgress();
-      updateButtons();
-    }
-  });
-
-  // Event listener for previous button
   prevButton.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex--;
+    if (currentCircle > 0) {
+      currentCircle--;
       updateProgress();
       updateButtons();
     }
   });
 
-  // Initial button states
+  nextButton.addEventListener('click', () => {
+    if (currentCircle < circles.length - 1) {
+      currentCircle++;
+      updateProgress();
+      updateButtons();
+    }
+  });
+
   updateButtons();
 </script>
+
 </body>
 </html>
